@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>穿越牛熊 Vol.007</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0c0c0c;
+    --white: #ffffff;
+    --gray-50: #fafaf8;
+    --gray-100: #f2f2ef;
+    --gray-200: #e4e4df;
+    --gray-400: #9c9c94;
+    --gray-600: #5c5c54;
+    --accent: #b8943e;
+    --accent-light: #f5edd8;
+    --bull: #1a7a48;
+    --bear: #b03030;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #bbb; font-family: 'Noto Sans SC', sans-serif; -webkit-font-smoothing: antialiased; }
+  .page { width: 960px; margin: 0 auto; background: var(--white); }
+
+  /* HEADER */
+  .header { background: var(--black); padding: 56px 56px 44px; position: relative; overflow: hidden; }
+  .header::after { content: '牛熊'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); font-family: 'Noto Serif SC', serif; font-size: 176px; font-weight: 900; color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; }
+  .header-inner { display: flex; align-items: flex-end; justify-content: space-between; position: relative; z-index: 1; }
+  .brand-name { font-family: 'Noto Serif SC', serif; font-size: 68px; font-weight: 900; color: var(--white); letter-spacing: -2px; line-height: 1; }
+  .brand-name em { color: var(--accent); font-style: normal; }
+  .brand-tagline { font-size: 18px; letter-spacing: 3px; color: rgba(255,255,255,0.28); text-transform: uppercase; margin-top: 10px; font-weight: 300; }
+  .header-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+  .vol-badge { border: 1px solid var(--accent); color: var(--accent); font-size: 18px; letter-spacing: 2px; padding: 6px 16px; font-weight: 500; text-transform: uppercase; }
+  .issue-info { font-family: 'DM Mono', monospace; font-size: 20px; color: rgba(255,255,255,0.22); line-height: 1.6; text-align: right; }
+
+  /* 市场快照 */
+  .snapshot { border-bottom: 3px solid var(--black); }
+  .snap-label { background: var(--black); padding: 12px 56px; font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 500; }
+  .market-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; background: var(--gray-200); }
+  .mkt { background: var(--white); padding: 22px 16px; }
+  .mkt-ticker { font-family: 'DM Mono', monospace; font-size: 16px; color: var(--gray-400); margin-bottom: 10px; line-height: 1.3; }
+  .mkt-price { font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 500; color: var(--black); line-height: 1; margin-bottom: 6px; }
+  .mkt-chg { font-family: 'DM Mono', monospace; font-size: 20px; }
+  .up { color: var(--bull); }
+  .down { color: var(--bear); }
+  .flat { color: var(--gray-400); }
+
+  /* 本期主线 */
+  .mainline { background: var(--accent); padding: 22px 56px; display: flex; align-items: center; gap: 20px; }
+  .ml-label { font-size: 18px; letter-spacing: 2px; color: rgba(0,0,0,0.4); text-transform: uppercase; white-space: nowrap; font-weight: 700; }
+  .ml-div { width: 1px; height: 24px; background: rgba(0,0,0,0.18); flex-shrink: 0; }
+  .ml-text { font-size: 24px; color: rgba(0,0,0,0.85); font-weight: 500; line-height: 1.5; }
+
+  /* 周期 */
+  .stage-bar { display: flex; border-bottom: 3px solid var(--black); }
+  .stage-item { flex: 1; padding: 18px 4px; text-align: center; border-right: 1px solid var(--gray-200); }
+  .stage-item:last-child { border-right: none; }
+  .stage-item.active { background: var(--black); }
+  .stage-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-200); margin: 0 auto 8px; }
+  .stage-item.active .stage-dot { background: var(--accent); }
+  .stage-name { font-size: 18px; color: var(--gray-400); }
+  .stage-item.active .stage-name { color: rgba(255,255,255,0.75); }
+
+  /* 区块 */
+  .block { border-bottom: 1px solid var(--gray-200); }
+  .block.featured { border-left: 4px solid var(--accent); }
+  .block-header { padding: 18px 56px; background: var(--gray-50); border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 14px; }
+  .block.featured .block-header { background: var(--black); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .block-num { font-family: 'DM Mono', monospace; font-size: 18px; color: var(--accent); font-weight: 500; }
+  .block-title { font-size: 22px; font-weight: 700; color: var(--black); letter-spacing: 1px; }
+  .block.featured .block-title { color: var(--white); }
+  .block-line { flex: 1; height: 1px; background: var(--gray-200); }
+  .block.featured .block-line { background: rgba(255,255,255,0.08); }
+  .block-tag { font-size: 16px; background: var(--black); color: var(--white); padding: 4px 14px; letter-spacing: 1px; font-weight: 500; }
+  .block.featured .block-tag { background: var(--accent); color: var(--black); font-weight: 700; }
+
+  /* 条目 */
+  .item { padding: 24px 56px; border-bottom: 1px solid var(--gray-100); }
+  .item:last-child { border-bottom: none; }
+  .item-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .tag { font-size: 20px; font-weight: 600; padding: 5px 14px; border: 1px solid; }
+  .tag-macro { color: var(--gray-600); border-color: var(--gray-200); background: var(--gray-50); }
+  .tag-alert { color: #8a0000; border-color: #e8a0a0; background: #fdf0f0; }
+  .tag-geo { color: #7a3a1a; border-color: #e8c4a0; background: #fdf5ee; }
+  .tag-us { color: #1a4a7a; border-color: #a8c4e0; background: #eef5fc; }
+  .tag-ai { color: #5a2d8a; border-color: #c8a8e0; background: #f5eefb; }
+  .tag-etf { color: #2c5f8a; border-color: #b8d4ec; background: #f0f7fd; }
+  .tag-inst { color: #4a6b3a; border-color: #b8d4a8; background: #f2f9ee; }
+  .item-date { font-family: 'DM Mono', monospace; font-size: 18px; color: var(--gray-400); }
+  .item-title { font-size: 26px; font-weight: 700; color: var(--black); line-height: 1.5; margin-bottom: 10px; }
+  .item-body { font-size: 22px; color: var(--gray-600); line-height: 1.85; font-weight: 300; margin-bottom: 12px; }
+  .item-body strong { color: var(--black); font-weight: 500; }
+
+  /* 数据框 */
+  .data-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--gray-200); margin: 12px 0; }
+  .data-cell { background: var(--white); padding: 18px 16px; }
+  .data-label { font-size: 16px; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-400); font-weight: 500; margin-bottom: 6px; }
+  .data-val { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; color: var(--black); }
+  .data-val.pos { color: var(--bull); }
+  .data-val.neg { color: var(--bear); }
+  .data-sub { font-size: 16px; color: var(--gray-400); margin-top: 3px; }
+
+  /* 判断框 */
+  .judge { border-left: 3px solid var(--accent); padding: 14px 18px; background: var(--accent-light); margin-top: 10px; }
+  .judge-text { font-size: 22px; color: #5a4820; line-height: 1.8; }
+  .judge-text strong { color: var(--black); font-weight: 600; }
+
+  /* 即将到来 */
+  .upcoming { background: var(--black); padding: 24px 56px; }
+  .upcoming-label { font-size: 16px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; font-weight: 700; margin-bottom: 16px; }
+  .upcoming-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); align-items: flex-start; }
+  .upcoming-item:last-child { border-bottom: none; }
+  .upcoming-date { font-family: 'DM Mono', monospace; font-size: 18px; color: var(--accent); white-space: nowrap; font-weight: 500; min-width: 110px; }
+  .upcoming-text { font-size: 20px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+  .upcoming-text em { color: rgba(255,255,255,0.45); font-style: normal; font-size: 18px; }
+
+  /* 穿越者说 */
+  .crosser { background: var(--black); padding: 36px 56px; border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .crosser-top { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .crosser-label { font-size: 18px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; font-weight: 700; white-space: nowrap; }
+  .crosser-rule { flex: 1; height: 1px; background: rgba(255,255,255,0.07); }
+  .crosser-body { font-family: 'Noto Serif SC', serif; font-size: 30px; color: rgba(255,255,255,0.88); line-height: 1.95; font-weight: 400; }
+  .crosser-body strong { color: var(--accent); font-weight: 700; }
+
+  /* 结论 */
+  .conclusion { background: #111; padding: 36px 56px; }
+  .conc-label { font-size: 18px; letter-spacing: 2.5px; color: var(--accent); text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  .conc-body { font-size: 24px; color: rgba(255,255,255,0.82); line-height: 1.95; font-weight: 300; }
+  .conc-body strong { color: rgba(255,255,255,0.95); font-weight: 500; }
+
+  /* 下期关注 */
+  .nextup { padding: 26px 56px; background: #111; border-top: 1px solid rgba(255,255,255,0.06); }
+  .nextup-label { font-size: 18px; letter-spacing: 2px; color: rgba(255,255,255,0.25); text-transform: uppercase; font-weight: 500; margin-bottom: 14px; }
+  .nextup-list { display: flex; flex-wrap: wrap; gap: 10px; }
+  .nextup-item { font-size: 20px; color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.12); padding: 7px 18px; }
+
+  /* Footer */
+  .footer { background: #080808; padding: 22px 56px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-brand { font-family: 'Noto Serif SC', serif; font-size: 24px; color: rgba(255,255,255,0.15); letter-spacing: 2px; }
+  .footer-note { font-size: 18px; color: rgba(255,255,255,0.12); text-align: right; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-inner">
+      <div>
+        <div class="brand-name">穿越<em>牛熊</em></div>
+        <div class="brand-tagline">Global Macro · AI · Digital Assets</div>
+      </div>
+      <div class="header-right">
+        <div class="vol-badge">Vol.007 · 周六版</div>
+        <div class="issue-info">2026.05.23<br>周一 / 三 / 五更新</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 市场快照 -->
+  <div class="snapshot">
+    <div class="snap-label">市场快照 · 2026.05.23</div>
+    <div class="market-grid">
+      <div class="mkt">
+        <div class="mkt-ticker">BTC</div>
+        <div class="mkt-price">75,565</div>
+        <div class="mkt-chg down">▼震荡</div>
+      </div>
+      <div class="mkt">
+        <div class="mkt-ticker">ETH</div>
+        <div class="mkt-price">2,064</div>
+        <div class="mkt-chg down">▼承压</div>
+      </div>
+      <div class="mkt">
+        <div class="mkt-ticker">S&P 500</div>
+        <div class="mkt-price">7,473</div>
+        <div class="mkt-chg up">▲+0.37%</div>
+      </div>
+      <div class="mkt">
+        <div class="mkt-ticker">纳指</div>
+        <div class="mkt-price">26,344</div>
+        <div class="mkt-chg up">▲+0.19%</div>
+      </div>
+      <div class="mkt">
+        <div class="mkt-ticker">黄金</div>
+        <div class="mkt-price">4,510</div>
+        <div class="mkt-chg down">▼高位回落</div>
+      </div>
+      <div class="mkt">
+        <div class="mkt-ticker">布油</div>
+        <div class="mkt-price">103.9</div>
+        <div class="mkt-chg up">▲+1.33%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 本期主线 -->
+  <div class="mainline">
+    <div class="ml-label">本期主线</div>
+    <div class="ml-div"></div>
+    <div class="ml-text">英伟达超预期不涨 + 美债收益率5.1%告警 + 谷歌AI全面基础设施化——三重信号重塑市场定价</div>
+  </div>
+
+  <!-- 周期 -->
+  <div class="stage-bar">
+    <div class="stage-item"><div class="stage-dot"></div><div class="stage-name">积累期</div></div>
+    <div class="stage-item active"><div class="stage-dot"></div><div class="stage-name">▶ 震荡承压</div></div>
+    <div class="stage-item"><div class="stage-dot"></div><div class="stage-name">筑底确认</div></div>
+    <div class="stage-item"><div class="stage-dot"></div><div class="stage-name">方向确认</div></div>
+    <div class="stage-item"><div class="stage-dot"></div><div class="stage-name">新趋势</div></div>
+  </div>
+
+  <!-- 01 宏观 -->
+  <div class="block">
+    <div class="block-header">
+      <div class="block-num">01</div>
+      <div class="block-title">宏观背景</div>
+      <div class="block-line"></div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-alert">⚠️ 债市警报</span>
+        <span class="item-date">本周</span>
+      </div>
+      <div class="item-title">30年期美债收益率逼近5.1%，债市在替美联储加息</div>
+      <div class="item-body">30年期美债收益率本周触及<strong>5.07%-5.10%</strong>，接近近年高位。长端利率自发上行，不需要美联储动手——这是债市对通胀失控的自主定价。与此同时，特朗普松口表示沃什可"按自己意愿"决定利率，被市场解读为政治干预压力边际缓解，但通胀数据的压力并未减轻。</div>
+      <div class="judge">
+        <div class="judge-text">长端收益率上行是所有高估值资产的天敌。5%以上的无风险利率意味着，任何资产都需要给出更高的预期回报才能吸引资金。这不是短期扰动，是定价框架的根本性重置。高科技股、黄金、数字资产都承受折现率上升的压力。</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-macro">美联储</span>
+        <span class="item-date">最新</span>
+      </div>
+      <div class="item-title">沃什接任后首周：市场已放弃年内降息，6月FOMC成关键博弈窗口</div>
+      <div class="item-body">CME数据显示，6月FOMC维持利率不变概率超92%，年内降息预期几乎归零。巴克莱、摩根士丹利相继放弃2026年降息预测。沃什面临的困局清晰：<strong>油价是供给冲击，加息无法创造石油；不动，债市就自动收紧</strong>。他唯一的空间是"把不降息的责任推给数据"——在通胀超预期的背景下，这套说法无懈可击。</div>
+      <div class="judge">
+        <div class="judge-text">6月FOMC是沃什的第一次真正考验。市场现在既不需要他降息，也不希望他加息——只需要他给出一个清晰的政策框架。"数据依赖"这四个字，将成为他接下来最重要的措辞工具。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 地缘 -->
+  <div class="block">
+    <div class="block-header">
+      <div class="block-num">02</div>
+      <div class="block-title">地缘冲突</div>
+      <div class="block-line"></div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-geo">美伊</span>
+        <span class="item-date">最新</span>
+      </div>
+      <div class="item-title">美伊月底伊斯兰堡谈判确认，特朗普称"不急"，布油反弹至104美元</div>
+      <div class="item-body">据沙特方面消息，美伊将在5月底朝觐季结束后于伊斯兰堡举行新一轮谈判。特朗普表示"不急于达成协议"，称不会为中期选举妥协，并与内塔尼亚胡通话讨论伊朗问题——据称通话"气氛紧张、长时间且戏剧性"，内塔尼亚胡"极度焦虑"。布伦特原油重回104美元，较70天来首船通行后的101美元再度反弹。</div>
+      <div class="judge">
+        <div class="judge-text">谈判确认是好消息，但特朗普"不急"的表态和以色列的焦虑说明：这场谈判的复杂程度远超双边范畴。油价在100-110美元区间宽幅震荡将是新常态，通胀的上行压力不会因为一次谈判而消失。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 美股 -->
+  <div class="block">
+    <div class="block-header">
+      <div class="block-num">03</div>
+      <div class="block-title">美股动态</div>
+      <div class="block-line"></div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-us">英伟达</span>
+        <span class="item-date">05.20财报</span>
+      </div>
+      <div class="item-title">英伟达816亿超预期，Q2指引910亿再超——股价几乎平盘，市场冷淡</div>
+      <div class="item-body">英伟达FY2027 Q1营收816亿美元，同比增长85%，净利润583亿美元，同比增长211%。数据中心业务收入752亿美元。Q2营收指引910亿美元，明显超过华尔街870亿的预期。但财报发布后，股价盘后一度大幅震荡，最终收盘价223.47美元，仅上涨1.3%，市场反应近乎冷淡。</div>
+      <div class="data-box">
+        <div class="data-cell">
+          <div class="data-label">Q1营收</div>
+          <div class="data-val pos">$816亿</div>
+          <div class="data-sub">同比+85%</div>
+        </div>
+        <div class="data-cell">
+          <div class="data-label">Q2指引</div>
+          <div class="data-val pos">$910亿</div>
+          <div class="data-sub">预期870亿</div>
+        </div>
+        <div class="data-cell">
+          <div class="data-label">股价涨幅</div>
+          <div class="data-val flat">+1.3%</div>
+          <div class="data-sub">几乎平盘</div>
+        </div>
+      </div>
+      <div class="judge">
+        <div class="judge-text">数字惊艳，市场冷静。过去几次财报英伟达屡屡超预期却未能推动股价大涨，市场已经把"超预期"当成最低门槛。更深的隐忧在于：五大云厂商贡献英伟达数据中心业务超50%营收，但这些客户上季度自由现金流要么大幅下滑，要么趋于平稳。"超预期不涨"本身就是这份财报最值得深思的信号——买方预期已被彻底宠坏，上涨空间正在收窄。</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-us">量子计算</span>
+        <span class="item-date">05.21</span>
+      </div>
+      <div class="item-title">美政府拟20亿美元入股量子计算，IBM单日暴涨12%</div>
+      <div class="item-body">美国政府拟向九家量子运算相关公司提供约20亿美元资金，并以股权投资方式参与，IBM周四股价大涨12.43%，D-Wave、Rigetti等量子相关类股同步走强。量子计算正从"远期科研概念"向"战略产业资产"加速转变，成为AI之后的下一个国家级技术竞赛赛道。</div>
+      <div class="judge">
+        <div class="judge-text">政府直接股权投资是强烈的产业信号。量子计算对AI的意义在于：当前AI的算力瓶颈本质上是经典计算的天花板，量子计算有望从底层架构突破这个限制。这不是今明两年的交易，但布局时间窗口已经开始。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 AI -->
+  <div class="block">
+    <div class="block-header">
+      <div class="block-num">04</div>
+      <div class="block-title">AI 前沿</div>
+      <div class="block-line"></div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-ai">Google I/O</span>
+        <span class="item-date">05.20</span>
+      </div>
+      <div class="item-title">谷歌I/O：Gemini全面嵌入搜索、手机、眼镜——AI从工具转向基础设施</div>
+      <div class="item-body">北京时间5月20日凌晨，谷歌I/O 2026在加州山景城开幕。谷歌CEO皮查伊表示，过去一年月处理Token达3.2千万亿，同比增长7倍，Gemini月活用户达9亿。本次大会的核心不是某一个模型，而是系统性转向：从搜索框到Chrome浏览器，从Android手机到智能眼镜，Gemini不再只是对话助手，而是可以持续运行、跨应用执行任务的AI代理——能替用户追踪信息、生成内容、调用工具，甚至直接完成下单和操作流程。<br><br>重点发布：Gemini App全面焕新；Google Maps新增Ask Maps支持自然语言问路；YouTube新增Ask YouTube基于视频内容回答问题；Docs支持语音实时创作；Android XR智能眼镜与三星联合发布，重量约50g。</div>
+      <div class="judge">
+        <div class="judge-text">谷歌这场发布会传递的核心信号只有一个：AI不再是独立的应用，而是所有应用的底层。当Gemini嵌入搜索、地图、邮件、文档、眼镜，用户触达AI的成本趋近于零。这对OpenAI是真实的威胁——谷歌有分发渠道，这是OpenAI没有的护城河。</div>
+      </div>
+    </div>
+
+    <!-- 即将到来 -->
+    <div class="upcoming">
+      <div class="upcoming-label">📅 即将到来</div>
+      <div class="upcoming-item">
+        <div class="upcoming-date">05月底</div>
+        <div class="upcoming-text">美伊伊斯兰堡新一轮谈判 <em>— 朝觐季结束后，谈判结果将直接影响油价走向</em></div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-date">06月FOMC</div>
+        <div class="upcoming-text">沃什首次独立主持FOMC <em>— 降息/不动/加息三种结局概率均在重估</em></div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-date">月底</div>
+        <div class="upcoming-text">Clarity法案参议院投票 <em>— 美国加密监管最重要里程碑，机构入场通道关键节点</em></div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-date">持续跟踪</div>
+        <div class="upcoming-text">SpaceX IPO招股书 · OpenAI商业化进展 · 马斯克vs OpenAI官司</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 数字资产 -->
+  <div class="block featured">
+    <div class="block-header">
+      <div class="block-num">05</div>
+      <div class="block-title">数字资产</div>
+      <div class="block-line"></div>
+      <div class="block-tag">本期重点</div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-etf">BTC</span>
+        <span class="item-date">最新</span>
+      </div>
+      <div class="item-title">BTC跌破76000美元，债市收益率上行成最大压制变量</div>
+      <div class="item-body">BTC当前约<strong>$75,565</strong>，ETH约<strong>$2,064</strong>，双双承压。30年期美债收益率逼近5.1%，实际利率上行对无息资产构成系统性压制。BTC与美股的高度联动在这轮调整中再次得到验证——标普逆势小涨0.37%，而BTC持续下行，说明市场对数字资产的风险偏好弱于传统股市。</div>
+      <div class="judge">
+        <div class="judge-text">当前BTC面临的核心压力来自利率，不来自需求。ETF机构资金的底部结构仍在，但高实际利率环境下，任何无现金流资产都面临估值重压。<strong>利率是所有资产的重力，BTC也不例外。</strong>等待利率预期边际改善，是当前最重要的宏观变量。</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-inst">监管</span>
+        <span class="item-date">月底</span>
+      </div>
+      <div class="item-title">Clarity法案月底参议院投票，通过将打开合规资金入场制度通道</div>
+      <div class="item-body">《Clarity法案》预计月底前完成参议院投票，若通过将是美国加密监管最重要里程碑——明确将大多数加密资产归类为商品而非证券，CFTC监管权力大幅扩大，机构合规入场通道制度性打开。目前已有10个州养老金配置BTC ETF，总规模超5亿美元，监管确定性将是下一波机构资金入场的触发器。</div>
+      <div class="judge">
+        <div class="judge-text">短期价格承压，长期结构在积累。Clarity法案如果通过，将在制度层面彻底改变数字资产的合规环境。这不是一个交易信号，而是一个周期信号——正如2024年BTC ETF获批一样，监管确定性往往在价格最压抑的时候完成布局。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 穿越者说 -->
+  <div class="crosser">
+    <div class="crosser-top">
+      <div class="crosser-label">穿越者说</div>
+      <div class="crosser-rule"></div>
+    </div>
+    <div class="crosser-body">
+      英伟达赚了816亿，股价没动。<br>
+      市场不是在问"赚了多少"，<br>
+      <strong>而是在问"还能赚多久"。</strong>
+    </div>
+  </div>
+
+  <!-- 结论 -->
+  <div class="conclusion">
+    <div class="conc-label">本期结论</div>
+    <div class="conc-body">
+      本周三重信号同时释放：英伟达超预期财报未能推动股价，说明市场预期已被宠坏、上涨空间收窄；美债收益率逼近5.1%，长端利率自发收紧压制所有高估值资产；谷歌I/O宣告AI全面基础设施化，竞争格局重塑。<br><br>
+      BTC跌破76000美元，随宏观压力同步承压。<strong>当前最重要的宏观变量是利率，而非需求。</strong>利率预期的边际改善，将是下一轮风险资产反弹的触发器。<br><br>
+      结构在积累：Clarity法案月底投票，机构资金底部结构未变。价格在承压：债市收益率、通胀、地缘三重压力叠加。穿越这段时间，耐心是唯一有效的策略。
+    </div>
+  </div>
+
+  <!-- 下期关注 -->
+  <div class="nextup">
+    <div class="nextup-label">下期关注</div>
+    <div class="nextup-list">
+      <div class="nextup-item">美伊谈判 月底</div>
+      <div class="nextup-item">Clarity法案投票</div>
+      <div class="nextup-item">6月FOMC</div>
+      <div class="nextup-item">美债收益率走向</div>
+      <div class="nextup-item">SpaceX IPO招股书</div>
+      <div class="nextup-item">5月ETF流向</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand">穿越牛熊</div>
+    <div class="footer-note">本内容仅供参考，不构成投资建议<br>周一 / 三 / 五更新</div>
+  </div>
+
+</div>
+</body>
+</html>

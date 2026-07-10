@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="每日快讯·穿越牛熊历史归档与最新一期">
+  <title>每日快讯 · 穿越牛熊</title>
+  <style>
+    :root { color-scheme: light; --ink:#10100f; --paper:#f5f2e9; --gold:#b8943e; --line:#d8d1bf; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; }
+    header { padding:30px max(20px,calc((100vw - 1120px)/2)); background:#0c0c0c; color:white; }
+    header p { margin:0 0 8px; color:var(--gold); font-size:13px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
+    header h1 { margin:0; font-family:"Noto Serif SC",serif; font-size:clamp(30px,5vw,48px); }
+    main { width:min(1120px,calc(100% - 28px)); margin:24px auto 56px; }
+    .archive { margin-bottom:22px; padding:18px; border:1px solid var(--line); background:#fff; }
+    .archive-head,.latest-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:14px; }
+    h2 { margin:0; font-size:20px; }
+    .archive-head span,.latest-head span { color:#746e60; font-size:13px; }
+    .issue-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; }
+    .issue-link { display:flex; justify-content:space-between; gap:12px; padding:10px 12px; border:1px solid var(--line); color:var(--ink); text-decoration:none; background:#faf9f5; }
+    .issue-link:hover { border-color:var(--gold); }
+    .issue-link.latest { border-color:var(--gold); background:#f6edd8; }
+    .issue-link span { font-weight:700; }
+    .issue-link time { color:#746e60; font-size:13px; }
+    .latest-card { padding:18px; border:1px solid var(--line); background:#fff; }
+    .open-link { color:#725614; font-weight:700; text-decoration:none; }
+    .frame-shell { width:100%; overflow:hidden; background:#bbb; }
+    #latestIssue { display:block; width:960px; border:0; transform-origin:top left; background:#bbb; }
+    footer { margin-top:16px; color:#746e60; font-size:12px; text-align:center; }
+    @media (max-width:560px) {
+      header { padding-top:22px; padding-bottom:22px; }
+      main { width:min(100% - 16px,1120px); margin-top:12px; }
+      .archive,.latest-card { padding:10px; }
+      .archive-head,.latest-head { align-items:flex-start; flex-direction:column; gap:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p>Global Macro · AI · Digital Assets</p>
+    <h1>每日快讯 · 穿越牛熊</h1>
+  </header>
+  <main>
+    <section class="archive" aria-labelledby="archive-title">
+      <div class="archive-head">
+        <h2 id="archive-title">历史期刊</h2>
+        <span>最新在前 · 共 20 期</span>
+      </div>
+      <nav class="issue-list" aria-label="穿越牛熊历史期刊">
+          <a class="issue-link latest" href="issues/2026-07-10/chuanyue-vol026_final.html"><span>Vol.026</span><time datetime="2026-07-10">2026-07-10</time></a>
+          <a class="issue-link" href="issues/2026-07-08/chuanyue-vol025_final.html"><span>Vol.025</span><time datetime="2026-07-08">2026-07-08</time></a>
+          <a class="issue-link" href="issues/2026-07-06/chuanyue-vol024_final.html"><span>Vol.024</span><time datetime="2026-07-06">2026-07-06</time></a>
+          <a class="issue-link" href="issues/2026-07-05/chuanyue-vol023_final.html"><span>Vol.023</span><time datetime="2026-07-05">2026-07-05</time></a>
+          <a class="issue-link" href="issues/2026-07-03/chuanyue-vol022_final.html"><span>Vol.022</span><time datetime="2026-07-03">2026-07-03</time></a>
+          <a class="issue-link" href="issues/2026-06-26/chuanyue-vol021_final.html"><span>Vol.021</span><time datetime="2026-06-26">2026-06-26</time></a>
+          <a class="issue-link" href="issues/2026-06-24/chuanyue-vol020_final.html"><span>Vol.020</span><time datetime="2026-06-24">2026-06-24</time></a>
+          <a class="issue-link" href="issues/2026-06-19/chuanyue-vol019_final.html"><span>Vol.019</span><time datetime="2026-06-19">2026-06-19</time></a>
+          <a class="issue-link" href="issues/2026-06-17/chuanyue-vol018_final.html"><span>Vol.018</span><time datetime="2026-06-17">2026-06-17</time></a>
+          <a class="issue-link" href="issues/2026-06-15/chuanyue-vol017_final.html"><span>Vol.017</span><time datetime="2026-06-15">2026-06-15</time></a>
+          <a class="issue-link" href="issues/2026-06-14/chuanyue-vol016_final.html"><span>Vol.016</span><time datetime="2026-06-14">2026-06-14</time></a>
+          <a class="issue-link" href="issues/2026-06-11/chuanyue-vol015_final.html"><span>Vol.015</span><time datetime="2026-06-11">2026-06-11</time></a>
+          <a class="issue-link" href="issues/2026-06-10/chuanyue-vol014_final.html"><span>Vol.014</span><time datetime="2026-06-10">2026-06-10</time></a>
+          <a class="issue-link" href="issues/2026-06-08/chuanyue-vol013_final.html"><span>Vol.013</span><time datetime="2026-06-08">2026-06-08</time></a>
+          <a class="issue-link" href="issues/2026-06-07/chuanyue-vol012_final.html"><span>Vol.012</span><time datetime="2026-06-07">2026-06-07</time></a>
+          <a class="issue-link" href="issues/2026-06-05/chuanyue-vol011_final.html"><span>Vol.011</span><time datetime="2026-06-05">2026-06-05</time></a>
+          <a class="issue-link" href="issues/2026-06-03/chuanyue-vol010_final.html"><span>Vol.010</span><time datetime="2026-06-03">2026-06-03</time></a>
+          <a class="issue-link" href="issues/2026-06-01/chuanyue-vol009.html"><span>Vol.009</span><time datetime="2026-06-01">2026-06-01</time></a>
+          <a class="issue-link" href="issues/2026-05-31/chuanyue-vol008.html"><span>Vol.008</span><time datetime="2026-05-31">2026-05-31</time></a>
+          <a class="issue-link" href="issues/2026-05-23/chuanyue-vol007.html"><span>Vol.007</span><time datetime="2026-05-23">2026-05-23</time></a>
+      </nav>
+    </section>
+    <section class="latest-card" aria-labelledby="latest-title">
+      <div class="latest-head">
+        <h2 id="latest-title">最新一期 · Vol.026</h2>
+        <a class="open-link" href="issues/2026-07-10/chuanyue-vol026_final.html">单独打开本期 ↗</a>
+      </div>
+      <div class="frame-shell" id="frameShell">
+        <iframe id="latestIssue" src="issues/2026-07-10/chuanyue-vol026_final.html" title="穿越牛熊 Vol.026" loading="eager"></iframe>
+      </div>
+    </section>
+    <footer>最后同步：2026-07-10 11:09 CST</footer>
+  </main>
+  <script>
+    (() => {
+      const naturalWidth = 960;
+      const frame = document.getElementById('latestIssue');
+      const shell = document.getElementById('frameShell');
+      const fit = () => {
+        try {
+          const scale = Math.min(1, shell.clientWidth / naturalWidth);
+          const doc = frame.contentDocument;
+          const height = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
+          frame.style.height = `${height}px`;
+          frame.style.transform = `scale(${scale})`;
+          shell.style.height = `${Math.ceil(height * scale)}px`;
+        } catch (error) {
+          frame.style.width = '100%';
+          frame.style.height = '80vh';
+        }
+      };
+      frame.addEventListener('load', () => { fit(); setTimeout(fit, 250); setTimeout(fit, 1200); });
+      window.addEventListener('resize', fit);
+    })();
+  </script>
+</body>
+</html>

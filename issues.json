@@ -1,0 +1,127 @@
+{
+  "domain": "liugc.xyz",
+  "latest": "Vol.026",
+  "latest_day": "2026-07-10",
+  "issues": [
+    {
+      "volume": 26,
+      "day": "2026-07-10",
+      "path": "issues/2026-07-10/chuanyue-vol026_final.html",
+      "sha256": "e856bc87ad43470d4489b9076bce93bec1ac52ce6d5d027e41f630f8a03cedb1"
+    },
+    {
+      "volume": 25,
+      "day": "2026-07-08",
+      "path": "issues/2026-07-08/chuanyue-vol025_final.html",
+      "sha256": "195bdae879a7e6f77f5150ab6ab8e0b43b4a6e5708ed7806da81011b581cf350"
+    },
+    {
+      "volume": 24,
+      "day": "2026-07-06",
+      "path": "issues/2026-07-06/chuanyue-vol024_final.html",
+      "sha256": "186d1c551054b3992b689fc22ee44d25e2f48996620b5dc42c913c64060199f1"
+    },
+    {
+      "volume": 23,
+      "day": "2026-07-05",
+      "path": "issues/2026-07-05/chuanyue-vol023_final.html",
+      "sha256": "3bf3e5c66f95b1741d24c3e6deaf3cc7587e69b1dac13ffe903f377172d60f80"
+    },
+    {
+      "volume": 22,
+      "day": "2026-07-03",
+      "path": "issues/2026-07-03/chuanyue-vol022_final.html",
+      "sha256": "9eeb7536581d98d9043b617f268b6c285d79e278b7fc3d3c69b662e91f03b96a"
+    },
+    {
+      "volume": 21,
+      "day": "2026-06-26",
+      "path": "issues/2026-06-26/chuanyue-vol021_final.html",
+      "sha256": "906c741005a6549a077d3d2194079afd405039c1fb2283ac55d1d67860dcecdf"
+    },
+    {
+      "volume": 20,
+      "day": "2026-06-24",
+      "path": "issues/2026-06-24/chuanyue-vol020_final.html",
+      "sha256": "67afcb1ef08abc88907a9b28736dca931ff815a3e4bef0d3893b120c2814d3cf"
+    },
+    {
+      "volume": 19,
+      "day": "2026-06-19",
+      "path": "issues/2026-06-19/chuanyue-vol019_final.html",
+      "sha256": "1d2ea7fc7592f54f32e8324b50db01fa409dae3447adadf012ba5ca1df27ffdf"
+    },
+    {
+      "volume": 18,
+      "day": "2026-06-17",
+      "path": "issues/2026-06-17/chuanyue-vol018_final.html",
+      "sha256": "a211f92834e8ef49f011446418f72b046d73acb5048f021dc8b9e3a41e9e1525"
+    },
+    {
+      "volume": 17,
+      "day": "2026-06-15",
+      "path": "issues/2026-06-15/chuanyue-vol017_final.html",
+      "sha256": "ccd9f385738e65679dbd844e43fb086abb836bef3095e7cf271b59e891df7e22"
+    },
+    {
+      "volume": 16,
+      "day": "2026-06-14",
+      "path": "issues/2026-06-14/chuanyue-vol016_final.html",
+      "sha256": "4d4548f0249ebb1a02d6162b211b1f630ce4d6713e6fd4521122194b2bfbd4a4"
+    },
+    {
+      "volume": 15,
+      "day": "2026-06-11",
+      "path": "issues/2026-06-11/chuanyue-vol015_final.html",
+      "sha256": "2b292ae4ece264a0fd9fb3b7ae99871734663aaeab69407dfc5416858da386e5"
+    },
+    {
+      "volume": 14,
+      "day": "2026-06-10",
+      "path": "issues/2026-06-10/chuanyue-vol014_final.html",
+      "sha256": "71e8073ae9d340d884377750446ec23378929641f77f857c97441db4e94bec58"
+    },
+    {
+      "volume": 13,
+      "day": "2026-06-08",
+      "path": "issues/2026-06-08/chuanyue-vol013_final.html",
+      "sha256": "46d8d00343fe931552f90188c342bd3d854f4ee908b65238fdbe8fe0880362ce"
+    },
+    {
+      "volume": 12,
+      "day": "2026-06-07",
+      "path": "issues/2026-06-07/chuanyue-vol012_final.html",
+      "sha256": "7f808074376aaf2d6229d1b3d1bdce4b6a94353eb95732261f4904c420654e72"
+    },
+    {
+      "volume": 11,
+      "day": "2026-06-05",
+      "path": "issues/2026-06-05/chuanyue-vol011_final.html",
+      "sha256": "917e8088e6b3aa9a962bb37c9f50be6c3170dcc4f517b84f983a147823b13877"
+    },
+    {
+      "volume": 10,
+      "day": "2026-06-03",
+      "path": "issues/2026-06-03/chuanyue-vol010_final.html",
+      "sha256": "0c72e5c101483ab2bb6ab4e4eb356707910e6c64a4030e7b96d15fc0ac3cd4f4"
+    },
+    {
+      "volume": 9,
+      "day": "2026-06-01",
+      "path": "issues/2026-06-01/chuanyue-vol009.html",
+      "sha256": "52015f7b86edf61c5adb1b7ff9a6547e370b53a2cb0a7d06b625b78e2b8d2fb0"
+    },
+    {
+      "volume": 8,
+      "day": "2026-05-31",
+      "path": "issues/2026-05-31/chuanyue-vol008.html",
+      "sha256": "02972ac9d7505d870ac8f8230899f35e8c814e075fee905f498c11a2fa929f6e"
+    },
+    {
+      "volume": 7,
+      "day": "2026-05-23",
+      "path": "issues/2026-05-23/chuanyue-vol007.html",
+      "sha256": "559022e980efc5988fe5affec8ab4958e3ed65f6d5122b80955a1d9a46fd221e"
+    }
+  ]
+}

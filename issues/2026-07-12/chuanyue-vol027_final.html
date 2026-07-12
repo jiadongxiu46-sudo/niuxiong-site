@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>穿越牛熊 Vol.027 · 周日版</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0c0c0c; --white: #ffffff;
+  --gray-50: #fafaf8; --gray-100: #f2f2ef; --gray-200: #e4e4df;
+  --gray-400: #9c9c94; --gray-600: #5c5c54;
+  --accent: #b8943e; --accent-light: #f5edd8;
+  --bull: #1a7a48; --bear: #b03030;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #bbb; font-family: 'Noto Sans SC', sans-serif; -webkit-font-smoothing: antialiased; }
+.page { width: 960px; margin: 0 auto; background: var(--white); }
+
+.header { background: var(--black); padding: 56px 56px 44px; position: relative; overflow: hidden; }
+.header::after { content: '牛熊'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); font-family: 'Noto Serif SC', serif; font-size: 176px; font-weight: 900; color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; }
+.header-inner { display: flex; align-items: flex-end; justify-content: space-between; position: relative; z-index: 1; }
+.brand-name { font-family: 'Noto Serif SC', serif; font-size: 68px; font-weight: 900; color: var(--white); letter-spacing: -2px; line-height: 1; }
+.brand-name em { color: var(--accent); font-style: normal; }
+.brand-tagline { font-size: 18px; letter-spacing: 3px; color: rgba(255,255,255,0.80); text-transform: uppercase; margin-top: 10px; font-weight: 300; }
+.header-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.vol-badge { border: 1px solid var(--accent); color: var(--accent); font-size: 18px; letter-spacing: 2px; padding: 6px 16px; font-weight: 500; text-transform: uppercase; }
+.issue-info { font-family: 'DM Mono', monospace; font-size: 20px; color: rgba(255,255,255,0.80); line-height: 1.6; text-align: right; }
+
+.snapshot { border-bottom: 3px solid var(--black); }
+.snap-label { background: var(--black); padding: 12px 56px; font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.80); font-weight: 500; }
+.market-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; background: var(--gray-200); }
+.mkt { background: var(--white); padding: 22px 16px; }
+.mkt-ticker { font-family: 'DM Mono', monospace; font-size: 16px; color: var(--gray-400); margin-bottom: 10px; line-height: 1.3; }
+.mkt-price { font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 500; color: var(--black); line-height: 1; margin-bottom: 6px; }
+.mkt-chg { font-family: 'DM Mono', monospace; font-size: 20px; }
+.up { color: var(--bull); } .down { color: var(--bear); } .flat { color: var(--gray-400); }
+
+.mainline { background: var(--accent); padding: 22px 56px; display: flex; align-items: center; gap: 20px; }
+.ml-label { font-size: 18px; letter-spacing: 2px; color: rgba(0,0,0,0.4); text-transform: uppercase; white-space: nowrap; font-weight: 700; }
+.ml-div { width: 1px; height: 24px; background: rgba(0,0,0,0.18); flex-shrink: 0; }
+.ml-text { font-size: 24px; color: rgba(0,0,0,0.85); font-weight: 500; line-height: 1.5; }
+
+.stage-bar { display: flex; border-bottom: 3px solid var(--black); }
+.stage-item { flex: 1; padding: 18px 4px; text-align: center; border-right: 1px solid var(--gray-200); }
+.stage-item:last-child { border-right: none; }
+.stage-item.active { background: var(--black); }
+.stage-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-200); margin: 0 auto 8px; }
+.stage-item.active .stage-dot { background: var(--accent); }
+.stage-name { font-size: 18px; color: var(--gray-400); }
+.stage-item.active .stage-name { color: rgba(255,255,255,0.75); }
+
+.block { border-bottom: 1px solid var(--gray-200); }
+.block.featured { border-left: 4px solid var(--accent); }
+.block-header { padding: 18px 56px; background: var(--gray-50); border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 14px; }
+.block.featured .block-header { background: var(--black); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.block-num { font-family: 'DM Mono', monospace; font-size: 18px; color: var(--accent); font-weight: 500; }
+.block-title { font-size: 22px; font-weight: 700; color: var(--black); letter-spacing: 1px; }
+.block.featured .block-title { color: var(--white); }
+.block-line { flex: 1; height: 1px; background: var(--gray-200); }
+.block.featured .block-line { background: rgba(255,255,255,0.08); }
+.block-tag { font-size: 16px; background: var(--black); color: var(--white); padding: 4px 14px; letter-spacing: 1px; font-weight: 500; }
+.block.featured .block-tag { background: var(--accent); color: var(--black); font-weight: 700; }
+
+.item { padding: 24px 56px; border-bottom: 1px solid var(--gray-100); }
+.item:last-child { border-bottom: none; }
+.item-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.tag { font-size: 20px; font-weight: 600; padding: 5px 14px; border: 1px solid; }
+.tag-macro { color: var(--gray-600); border-color: var(--gray-200); background: var(--gray-50); }
+.tag-alert { color: #8a0000; border-color: #e8a0a0; background: #fdf0f0; }
+.tag-geo { color: #7a3a1a; border-color: #e8c4a0; background: #fdf5ee; }
+.tag-us { color: #1a4a7a; border-color: #a8c4e0; background: #eef5fc; }
+.tag-ai { color: #5a2d8a; border-color: #c8a8e0; background: #f5eefb; }
+.tag-etf { color: #2c5f8a; border-color: #b8d4ec; background: #f0f7fd; }
+.tag-inst { color: #4a6b3a; border-color: #b8d4a8; background: #f2f9ee; }
+.item-date { font-family: 'DM Mono', monospace; font-size: 18px; color: var(--gray-400); }
+.item-title { font-size: 26px; font-weight: 700; color: var(--black); line-height: 1.5; margin-bottom: 10px; }
+.item-body { font-size: 22px; color: var(--gray-600); line-height: 1.85; font-weight: 300; margin-bottom: 12px; }
+.item-body strong { color: var(--black); font-weight: 500; }
+
+.data-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--gray-200); margin: 12px 0; }
+.data-cell { background: var(--white); padding: 18px 16px; }
+.data-label { font-size: 16px; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-400); font-weight: 500; margin-bottom: 6px; }
+.data-val { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; color: var(--black); }
+.data-val.pos { color: var(--bull); } .data-val.neg { color: var(--bear); } .data-val.flat { color: var(--gray-400); }
+.data-sub { font-size: 16px; color: var(--gray-400); margin-top: 3px; }
+
+.judge { border-left: 3px solid var(--accent); padding: 14px 18px; background: var(--accent-light); margin-top: 10px; }
+.judge-text { font-size: 22px; color: #5a4820; line-height: 1.8; }
+.judge-text strong { color: var(--black); font-weight: 600; }
+
+.upcoming { background: var(--black); padding: 24px 56px; }
+.upcoming-label { font-size: 16px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; font-weight: 700; margin-bottom: 16px; }
+.upcoming-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); align-items: flex-start; }
+.upcoming-item:last-child { border-bottom: none; }
+.upcoming-date { font-family: 'DM Mono', monospace; font-size: 18px; color: var(--accent); white-space: nowrap; font-weight: 500; min-width: 110px; }
+.upcoming-text { font-size: 20px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+.upcoming-text em { color: rgba(255,255,255,0.45); font-style: normal; font-size: 18px; }
+
+.crosser { background: var(--black); padding: 36px 56px; border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.05); }
+.crosser-top { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.crosser-label { font-size: 18px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; font-weight: 700; white-space: nowrap; }
+.crosser-rule { flex: 1; height: 1px; background: rgba(255,255,255,0.07); }
+.crosser-body { font-family: 'Noto Serif SC', serif; font-size: 30px; color: rgba(255,255,255,0.88); line-height: 1.95; font-weight: 400; }
+.crosser-body strong { color: var(--accent); font-weight: 700; }
+
+.conclusion { background: #111; padding: 36px 56px; }
+.conc-label { font-size: 18px; letter-spacing: 2.5px; color: var(--accent); text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+.conc-body { font-size: 24px; color: rgba(255,255,255,0.82); line-height: 1.95; font-weight: 300; }
+.conc-body strong { color: rgba(255,255,255,0.95); font-weight: 500; }
+
+.nextup { padding: 26px 56px; background: #111; border-top: 1px solid rgba(255,255,255,0.06); }
+.nextup-label { font-size: 18px; letter-spacing: 2px; color: rgba(255,255,255,0.80); text-transform: uppercase; font-weight: 500; margin-bottom: 14px; }
+.nextup-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.nextup-item { font-size: 20px; color: rgba(255,255,255,0.88); border: 1px solid rgba(255,255,255,0.12); padding: 7px 18px; }
+
+.footer { background: #080808; padding: 22px 56px; display: flex; align-items: center; justify-content: space-between; }
+.footer-brand { font-family: 'Noto Serif SC', serif; font-size: 24px; color: rgba(255,255,255,0.15); letter-spacing: 2px; }
+.footer-note { font-size: 18px; color: rgba(255,255,255,0.12); text-align: right; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header"><div class="header-inner"><div><div class="brand-name">穿越<em>牛熊</em></div><div class="brand-tagline">Global Macro · AI · Digital Assets</div></div><div class="header-right"><div class="vol-badge">Vol.027 · 周日版</div><div class="issue-info">2026.07.12<br>周一 / 三 / 五更新</div></div></div></div>
+
+  <div class="snapshot">
+    <div class="snap-label">市场快照 · 2026.07.12</div>
+    <div class="market-grid"><div class="mkt"><div class="mkt-ticker">BTC</div><div class="mkt-price">63,821</div><div class="mkt-chg down">▼-0.42%</div></div><div class="mkt"><div class="mkt-ticker">ETH</div><div class="mkt-price">1,624.95</div><div class="mkt-chg flat">--</div></div><div class="mkt"><div class="mkt-ticker">S&P 500</div><div class="mkt-price">7,575.39</div><div class="mkt-chg up">▲+0.4%</div></div><div class="mkt"><div class="mkt-ticker">纳指</div><div class="mkt-price">26,281.61</div><div class="mkt-chg up">▲+0.3%</div></div><div class="mkt"><div class="mkt-ticker">黄金</div><div class="mkt-price">--</div><div class="mkt-chg flat">--</div></div><div class="mkt"><div class="mkt-ticker">布油</div><div class="mkt-price">71.41</div><div class="mkt-chg flat">--</div></div></div>
+  </div>
+  <div class="mainline"><div class="ml-label">本期主线</div><div class="ml-div"></div><div class="ml-text">美伊连番交火、俄乌能源战升级，美股靠AI/半导体逆势收涨，加密维持区间震荡</div></div>
+<div class="stage-bar"><div class="stage-item"><div class="stage-dot"></div><div class="stage-name">积累期</div></div><div class="stage-item"><div class="stage-dot"></div><div class="stage-name">震荡承压</div></div><div class="stage-item"><div class="stage-dot"></div><div class="stage-name">筑底确认</div></div><div class="stage-item active"><div class="stage-dot"></div><div class="stage-name">▶ 方向确认</div></div><div class="stage-item"><div class="stage-dot"></div><div class="stage-name">新趋势</div></div></div>
+  <div class="block"><div class="block-header"><div class="block-num">01</div><div class="block-title">AI 前沿</div><div class="block-line"></div></div>
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-ai">OpenAI</span>
+        <span class="item-date">07.10-11</span>
+      </div>
+      <div class="item-title">GPT-5.6发布引关联实体访问风波</div>
+      <div class="item-body">OpenAI发布GPT-5.6并推出ChatGPT Work，强调工具协同与长任务能力；FT随后报道阿里、百度、腾讯新加坡关联实体曾获GPT-5.6访问权限，OpenAI已暂停部分阿里关联账户，蒸馏风险与合规细节待官方确认。</div>
+      
+      <div class="judge"><div class="judge-text">模型能力叙事与合规风险同周出现，说明前沿模型竞争边界已从性能扩展到访问控制与出口合规，企业客户尽调清单需要同步更新。</div></div>
+    </div>
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-ai">Anthropic</span>
+        <span class="item-date">07.10-12</span>
+      </div>
+      <div class="item-title">Anthropic以治理沟通打差异化牌</div>
+      <div class="item-body">Anthropic本周先后上线Reflection beta与Inviting hard questions栏目，主打AI使用透明度与公众治理沟通；周日再推出Claude Corps人才项目，首批100人7月17日截止申请，10月首期启动。</div>
+      
+      <div class="judge"><div class="judge-text">从产品透明度到人才培养，Anthropic把竞争维度从模型能力延伸到组织信任与人才供给，短期难以量化，但长期是护城河变量。</div></div>
+    </div></div>  <div class="block"><div class="block-header"><div class="block-num">02</div><div class="block-title">地缘冲突</div><div class="block-line"></div></div>
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-alert">⚠️ 中东</span>
+        <span class="item-date">07.09-12</span>
+      </div>
+      <div class="item-title">美伊多轮交火，霍尔木兹通航仍未解</div>
+      <div class="item-body">本周美伊停火两度破裂，美国对伊朗展开新一轮打击，Brent一度涨5.2%至78美元；周五起美国转为要求伊朗公开保证霍尔木兹海峡通航安全并停止袭击，油价短线回落至约71美元，但风险未解除。</div>
+      
+      <div class="judge"><div class="judge-text">口径从军事打击转向要求公开保证，是缓和信号，但没有官方书面文本前，航运和油价的尾部风险依然存在。</div></div>
+    </div>
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-geo">俄乌 / NATO</span>
+        <span class="item-date">07.07-11</span>
+      </div>
+      <div class="item-title">俄乌互袭能源目标，NATO许可Patriot生产</div>
+      <div class="item-body">俄罗斯对乌克兰发动351架无人机、68枚导弹袭击造成至少22人死亡，乌克兰同步扩大对俄能源设施的远程打击；NATO峰会期间特朗普表态授权乌克兰生产Patriot，专家称落地仍需数年，美国对俄制裁法案讨论同步升温。</div>
+      
+      <div class="judge"><div class="judge-text">双方都把能源设施作为战争压力点，防空缺口短期难解，制裁法案能否落地决定制裁是否外溢到主要能源买家。</div></div>
+    </div></div>  <div class="block"><div class="block-header"><div class="block-num">03</div><div class="block-title">美股动态</div><div class="block-line"></div></div>
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-us">美股</span>
+        <span class="item-date">07.10收盘</span>
+      </div>
+      <div class="item-title">指数顶住FOMC冲击，全周收涨</div>
+      <div class="item-body">FOMC六月纪要偏鹰、Brent涨5.2%一度令道指跌1.1%，但周五三大指数反弹，S&P 500涨0.4%至7,575.39，全周涨1.2%，纳指全周涨1.7%；Russell 2000周五跌0.5%，市场宽度仍待验证。</div>
+      <div class="data-box"><div class="data-cell"><div class="data-label">S&P 500</div><div class="data-val pos">7,575.39</div><div class="data-sub">周涨+1.2%</div></div><div class="data-cell"><div class="data-label">纳指</div><div class="data-val pos">26,281.61</div><div class="data-sub">周涨+1.7%</div></div><div class="data-cell"><div class="data-label">Russell 2000</div><div class="data-val neg">2,977.81</div><div class="data-sub">周五-0.5%</div></div></div>
+      <div class="judge"><div class="judge-text">全周正收益掩盖了中途的鹰派冲击和油价冲击，指数韧性主要靠AI权重股支撑，非全面风险偏好扩散。</div></div>
+    </div>
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-macro">利率 / 半导体</span>
+        <span class="item-date">07.11</span>
+      </div>
+      <div class="item-title">美债收益率维持高位，SK Hynix首秀走强</div>
+      <div class="item-body">SK Hynix华尔街上市首日大涨，HBM与AI存储需求叙事强化芯片链；10年期美债收益率维持约4.54%-4.57%，2年期约4.18%-4.21%，压制成长股估值容错率，下周CPI是第一验证点。</div>
+      
+      <div class="judge"><div class="judge-text">收益率高位和AI芯片叙事同时存在，说明市场在为增长和通胀两种情景同时定价，CPI结果会决定哪条线胜出。</div></div>
+    </div></div>  <div class="block featured"><div class="block-header"><div class="block-num">04</div><div class="block-title">数字资产</div><div class="block-line"></div><div class="block-tag">本期重点</div></div>
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-etf">BTC</span>
+        <span class="item-date">07.06-12</span>
+      </div>
+      <div class="item-title">BTC全周维持6.2万-6.4万美元区间</div>
+      <div class="item-body">BTC本周先守住63,000-64,000美元，FOMC纪要冲击下一度回落至62,000美元附近，周末修复至约63,821美元（-0.42%）；ETH、SOL等主流币修复力度普遍弱于BTC，未见独立于宏观的新增主线。</div>
+      <div class="data-box"><div class="data-cell"><div class="data-label">BTC</div><div class="data-val flat">63,821</div><div class="data-sub">-0.42%</div></div><div class="data-cell"><div class="data-label">周内低点</div><div class="data-val neg">~62,000</div><div class="data-sub">FOMC冲击后</div></div><div class="data-cell"><div class="data-label">ETH</div><div class="data-val flat">1,624.95</div><div class="data-sub">--</div></div></div>
+      <div class="judge"><div class="judge-text">价格区间震荡但没有突破，说明BTC仍是宏观风险的跟随资产，而非独立定价的避险或进攻性资产。</div></div>
+    </div>
+    <div class="item">
+      <div class="item-top">
+        <span class="tag tag-etf">ETF资金流</span>
+        <span class="item-date">07.09-11</span>
+      </div>
+      <div class="item-title">BTC/ETH ETF资金分化，6月BTC ETF净流出约40亿</div>
+      <div class="item-body">SoSoValue数据显示6月BTC现货ETF净流出约40亿美元，IBIT为主要流出来源；本周三BTC ETF单日净流出约8,500万美元，ETH ETF延续五日流入约7,000万美元；全市场OI约1,087亿美元，24h清算约2.05亿美元。</div>
+      
+      <div class="judge"><div class="judge-text">BTC与ETH ETF资金流方向持续分化，若BTC流出趋势不逆转，价格对美股和油价冲击的抵抗力会继续减弱。</div></div>
+    </div></div>
+  <div class="crosser"><div class="crosser-top"><div class="crosser-label">穿越者说</div><div class="crosser-rule"></div></div><div class="crosser-body">美伊打了又停，停了又打。<br>标普还是涨了1.2%。<br>数字比新闻更耐心。</div></div>
+  <div class="conclusion"><div class="conc-label">本期结论</div><div class="conc-body">本周地缘双线展开：美伊围绕霍尔木兹通航反复交火，俄乌能源设施互袭升级，均未形成书面协议。<br><br>美股顶住FOMC鹰派冲击收复失地，S&P全周涨1.2%，SK Hynix上市带动芯片链走强，但美债收益率仍压制估值。<br><br>BTC全周维持62,000-64,000美元区间，ETF资金分化，加密尚未走出独立行情，下周CPI是关键验证点。</div></div>
+  <div class="nextup"><div class="nextup-label">下期关注</div><div class="nextup-list"><div class="nextup-item">霍尔木兹通航声明</div><div class="nextup-item">下周CPI/零售销售</div><div class="nextup-item">BTC/ETH ETF资金流</div><div class="nextup-item">大行/TSMC/Netflix财报</div><div class="nextup-item">对俄制裁法案进展</div></div></div>
+  <div class="footer"><div class="footer-brand">穿越牛熊</div><div class="footer-note">本内容仅供参考，不构成投资建议<br>周一 / 三 / 五更新</div></div>
+</div>
+</body>
+</html>

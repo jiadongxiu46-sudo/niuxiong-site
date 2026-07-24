@@ -1,8 +1,14 @@
 {
   "domain": "liugc.xyz",
-  "latest": "Vol.033",
-  "latest_day": "2026-07-22",
+  "latest": "Vol.034",
+  "latest_day": "2026-07-24",
   "issues": [
+    {
+      "volume": 34,
+      "day": "2026-07-24",
+      "path": "issues/2026-07-24/chuanyue-vol034_final.html",
+      "sha256": "72de81c73eea024dd9871474cd7c7df2453bc42258cc83b1d4a66ae98dde4685"
+    },
     {
       "volume": 33,
       "day": "2026-07-22",
